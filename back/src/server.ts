@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 app.use((req, res, next) => {
-  console.log("req: ", req.method, req.url);
+  console.log("req: ", req.method, req.ur1);
   next();
 });
 
