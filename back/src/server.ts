@@ -1,14 +1,16 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import serveIndex from "serve-index";
 import api from "./api";
 
 const app = express();
 const port = 3000;
 
-app.use((req, res, next) => {
+const logger = (req: Request, res: Response, next: NextFunction) => {
   console.log("req: ", req.method, req.url);
   next();
-});
+};
+
+app.use(logger);
 
 app.use("/api", api);
 
