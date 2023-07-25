@@ -1,7 +1,7 @@
 import { SVG_NS, r1 } from "./constant";
 import { Config } from "./interfaces/Config";
 import { getAngleFromIndex, getPointOnCircleFromAngle } from "./math";
-import { setAttributeNbr } from "./misc";
+import { querySelector, setAttributeNbr } from "./misc";
 
 export class Board {
   config: Config = {
@@ -9,11 +9,13 @@ export class Board {
     multiplicationFactor: 12,
   };
 
+  clean() {
+    querySelector("svg g.samples").innerHTML = "";
+    querySelector("svg g.lines").innerHTML = "";
+  }
+
   draw() {
-    const container = document.querySelector("svg g.samples");
-    if (container === null) {
-      throw new Error("Cannot find selector svg g.samples");
-    }
+    const container = querySelector("svg g.samples");
 
     for (let i = 0; i < this.config.samples; i++) {
       const circle = document.createElementNS(SVG_NS, "circle");
@@ -27,10 +29,8 @@ export class Board {
       container.appendChild(circle);
     }
 
-    const lineContainer = document.querySelector("svg g.lines");
-    if (lineContainer === null) {
-      throw new Error("Cannot find selector svg g.lines");
-    }
+    const lineContainer = querySelector("svg g.lines");
+
     for (let i = 0; i < this.config.samples; i++) {
       const line = document.createElementNS(SVG_NS, "line");
 
@@ -48,6 +48,11 @@ export class Board {
       setAttributeNbr(line, "y2", p2.y);
       lineContainer.appendChild(line);
     }
+  }
+
+  redraw() {
+    this.clean();
+    this.draw();
   }
 
   setConfig(config: Config) {
