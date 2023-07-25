@@ -12,6 +12,7 @@ export class Command {
 
   constructor() {
     this.render();
+    this.setActions();
   }
 
   onChange(callback: Callback) {
@@ -36,6 +37,25 @@ export class Command {
     ) as HTMLInputElement;
     console.log("inputElt2: ", inputElt2);
     inputElt2.value = this.config.multiplicationFactor + "";
+  }
+
+  setActions() {
+    const inputElt = querySelector(
+      "div.command label.samples input"
+    ) as HTMLInputElement;
+    inputElt.addEventListener("input", () => {
+      this.config.samples = +inputElt.value;
+      this.render();
+      this.callback(this.config);
+    });
+    const inputElt2 = querySelector(
+      "div.command label.multiplicationFactor input"
+    ) as HTMLInputElement;
+    inputElt2.addEventListener("input", () => {
+      this.config.multiplicationFactor = +inputElt2.value;
+      this.render();
+      this.callback(this.config);
+    });
   }
 
   setConfig(config: Config) {
