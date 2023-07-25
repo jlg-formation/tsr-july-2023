@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import serveIndex from "serve-index";
+import cors from "cors";
 import api from "./api";
 
 const app = express();
@@ -11,6 +12,7 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
 };
 
 app.use(logger);
+app.use(cors());
 
 app.use("/api", api);
 

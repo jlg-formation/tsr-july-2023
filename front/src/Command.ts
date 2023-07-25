@@ -1,3 +1,4 @@
+import { url } from "./constant";
 import { Config } from "./interfaces/Config";
 import { querySelector } from "./misc";
 
@@ -53,6 +54,15 @@ export class Command {
     ) as HTMLInputElement;
     inputElt2.addEventListener("input", () => {
       this.config.multiplicationFactor = +inputElt2.value;
+      this.render();
+      this.callback(this.config);
+    });
+
+    const getConfigBtn = querySelector("div.command button.get-config");
+    getConfigBtn.addEventListener("click", async () => {
+      const response = await fetch(url);
+      const json = await response.json();
+      this.config = json;
       this.render();
       this.callback(this.config);
     });
