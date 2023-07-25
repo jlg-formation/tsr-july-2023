@@ -6,6 +6,7 @@ const cy0 = 50;
 const r0 = 45;
 
 const samples = 10;
+const multiplicationFactor = 2;
 
 const svgns = "http://www.w3.org/2000/svg";
 const container = document.querySelector("svg g.samples");
